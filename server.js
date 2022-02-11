@@ -16,15 +16,11 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-console.log(game.chooseWord());
-
-
 app.post('/checkGuess', (req, res) => {
     const twiml = new MessagingResponse();
     let userGuess = req.body.Body;
-    // input validation
 
-    let isValidInput = game.isInputValid(req.body.Body);
+    let isValidInput = game.isInputValid(req.body.Body); // determines if user input is valid
 
     if (chances > 0 && isValidInput) {
         const result = game.isCorrect(userGuess);
@@ -42,3 +38,5 @@ app.post('/checkGuess', (req, res) => {
 http.createServer(app).listen(process.env.PORT, () => { 
     console.log('Express server listening on port 4000');
 });
+
+console.log(game.chooseWord());

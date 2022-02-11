@@ -6,13 +6,16 @@ var finalGuessBlock = 'Wordle 1'; // final result
 var guess1 = 'hoard'; // guess
 let numOfGuesses = 6; // number of guesses
 
+'use strict';
 const fs = require('fs');
 
 function chooseWord() {
-    fs.readFileSync('words-test.json', (err, data) => {
+    fs.readFile('words.json', (err, data) => {
         if (err) throw err;
-        console.log(data);
-        const x = data;
+        let words = JSON.parse(data);
+        // randomly index
+        let randomIndex = parseInt(Math.random() * words.length);
+        console.log(words[[randomIndex]]);
     });
 }
 
@@ -53,7 +56,5 @@ function isCorrect(userGuess) {
     //return (guessBlocks === '🟩🟩🟩🟩🟩') ? userGuess : userGuess + "\n" + guessBlocks;
     return "\n " + userGuess.split('').join(' ') + "\n" + guessBlocks;
 }
-
-//console.log(isCorrect('hoard'));
 
 module.exports = { isCorrect, convertToBlocks, isLetterInWord, numOfGuesses, chooseWord, isInputValid };
