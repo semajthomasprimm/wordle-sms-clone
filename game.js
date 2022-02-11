@@ -9,11 +9,18 @@ let numOfGuesses = 6; // number of guesses
 const fs = require('fs');
 
 function chooseWord() {
-    fs.readFileSync('words-test.txt', (err, data) => {
+    fs.readFileSync('words-test.json', (err, data) => {
         if (err) throw err;
         console.log(data);
         const x = data;
     });
+}
+
+// Tests whether user input contains only alphabetic characters
+function isInputValid(word) {
+    const isAlphabetLetterOnly = /^[a-zA-Z]+$/;
+    const userInput = word.toString();
+    return isAlphabetLetterOnly.test(userInput.toLowerCase());
 }
 
 // check if letter is in word
@@ -49,4 +56,4 @@ function isCorrect(userGuess) {
 
 //console.log(isCorrect('hoard'));
 
-module.exports = { isCorrect, convertToBlocks, isLetterInWord, numOfGuesses, chooseWord };
+module.exports = { isCorrect, convertToBlocks, isLetterInWord, numOfGuesses, chooseWord, isInputValid };
